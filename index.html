@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Jovia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF6F0;
+    --cream-deep:#F3E9DE;
+    --wine:#5A2A3A;
+    --wine-deep:#3E1C28;
+    --gold:#B8895A;
+    --ink:#2B2224;
+    --muted:#8A7468;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Cormorant Garamond', serif;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{ font-family:'Playfair Display', serif; }
+
+  .section{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:60px 24px;
+    position:relative;
+  }
+
+  /* decorative rule */
+  .rule{
+    width:56px; height:1px;
+    background:var(--gold);
+    margin:22px auto;
+  }
+  .kicker{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    letter-spacing:0.08em;
+    color:var(--gold);
+    font-size:17px;
+    text-transform:uppercase;
+    opacity:0;
+    animation:fadeUp 1s ease forwards;
+  }
+
+  /* HERO */
+  #hero h1{
+    font-size:clamp(46px, 9vw, 92px);
+    font-weight:600;
+    color:var(--wine-deep);
+    opacity:0;
+    animation:fadeUp 1.1s ease .2s forwards;
+  }
+  #hero .sub{
+    font-size:20px;
+    color:var(--muted);
+    font-style:italic;
+    max-width:44ch;
+    margin-top:8px;
+    opacity:0;
+    animation:fadeUp 1.1s ease .5s forwards;
+  }
+  .scrollcue{
+    position:absolute;
+    bottom:36px;
+    font-size:13px;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:var(--muted);
+    opacity:0;
+    animation:fadeUp 1s ease 1.1s forwards, bob 2.4s ease-in-out 2s infinite;
+  }
+
+  @keyframes fadeUp{
+    from{ opacity:0; transform:translateY(18px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  @keyframes bob{
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(8px); }
+  }
+
+  /* LETTER */
+  #letter{ background:var(--cream-deep); }
+  .letter-box{ max-width:620px; }
+  #letter h2{
+    font-size:clamp(28px,4.5vw,40px);
+    color:var(--wine-deep);
+    margin-bottom:8px;
+  }
+  .letter-text{
+    font-size:21px;
+    line-height:1.85;
+    color:#4A3B3B;
+    text-align:left;
+    margin-top:28px;
+  }
+  .letter-text p{ margin-bottom:20px; }
+  .signature{
+    font-family:'Playfair Display', serif;
+    font-style:italic;
+    font-size:26px;
+    color:var(--wine);
+    margin-top:8px;
+    text-align:right;
+  }
+
+  /* MEMORY / REASONS */
+  #reasons h2{
+    font-size:clamp(28px,4.5vw,40px);
+    color:var(--wine-deep);
+    margin-bottom:44px;
+  }
+  .reasons-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+    gap:28px;
+    max-width:800px;
+  }
+  .reason{
+    padding:26px 20px;
+    border:1px solid #E3D2C2;
+    border-radius:6px;
+    background:var(--cream);
+  }
+  .reason .num{
+    font-family:'Playfair Display', serif;
+    font-style:italic;
+    color:var(--gold);
+    font-size:15px;
+    margin-bottom:10px;
+  }
+  .reason p{ font-size:19px; color:#4A3B3B; }
+
+  /* PROPOSAL */
+  #proposal{
+    background:var(--wine-deep);
+    color:var(--cream);
+    position:relative;
+    overflow:hidden;
+  }
+  #proposal .kicker{ color:var(--gold); }
+  #proposal h2{
+    font-size:clamp(38px,7vw,68px);
+    color:var(--cream);
+    margin:14px 0 40px;
+  }
+  .btn-row{
+    display:flex;
+    gap:20px;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+    height:70px;
+  }
+  .yes-btn, .no-btn{
+    font-family:'Cormorant Garamond', serif;
+    font-size:20px;
+    letter-spacing:0.03em;
+    padding:16px 38px;
+    border-radius:40px;
+    cursor:pointer;
+    border:none;
+  }
+  .yes-btn{
+    background:var(--gold);
+    color:var(--wine-deep);
+    font-weight:600;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .yes-btn:hover{ transform:scale(1.06); box-shadow:0 10px 26px -10px rgba(184,137,90,0.6); }
+  .no-btn{
+    background:transparent;
+    border:1px solid rgba(251,246,240,0.4);
+    color:var(--cream);
+    position:relative;
+    transition:transform .18s ease;
+  }
+
+  .proposal-content, .celebration{
+    transition:opacity .5s ease;
+  }
+  .celebration{
+    display:none;
+    opacity:0;
+  }
+  .celebration.show{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    opacity:1;
+  }
+  .celebration h2{
+    color:var(--cream);
+    font-size:clamp(40px,8vw,80px);
+  }
+  .celebration p{
+    font-size:22px;
+    color:var(--cream-deep);
+    font-style:italic;
+    margin-top:14px;
+    max-width:44ch;
+  }
+
+  .heart{
+    position:fixed;
+    top:-40px;
+    font-size:22px;
+    color:var(--gold);
+    pointer-events:none;
+    animation:fall linear forwards;
+    z-index:50;
+  }
+  @keyframes fall{
+    to{ transform:translateY(110vh) rotate(360deg); opacity:0.2; }
+  }
+
+  footer{
+    text-align:center;
+    font-size:14px;
+    color:var(--muted);
+    padding:30px;
+    font-style:italic;
+    background:var(--cream-deep);
+  }
+
+  @media (max-width:520px){
+    .btn-row{ height:100px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<section id="hero" class="section">
+  <div class="kicker">a letter for</div>
+  <h1>Jovia</h1>
+  <p class="sub">There's something I've been meaning to ask you.</p>
+  <div class="scrollcue">scroll down ↓</div>
+</section>
+
+<section id="letter" class="section">
+  <div class="letter-box">
+    <div class="kicker" style="animation-delay:0s; opacity:1;">before I ask</div>
+    <h2>A few things I wanted to say</h2>
+    <div class="letter-text">
+      <p>From the very beginning, you made an ordinary life feel like something worth
+      looking forward to every single day. [Edit this: add a real memory of how you
+      met, or what you noticed about her first.]</p>
+      <p>You've been my favorite person to tell good news to, and the steadiest place
+      to land on the hard days. [Edit this: add something specific she does that
+      makes you feel loved.]</p>
+      <p>I don't want a life without you in the middle of it.</p>
+    </div>
+    <div class="signature">— always, [Your name]</div>
+  </div>
+</section>
+
+<section id="reasons" class="section">
+  <div class="kicker" style="opacity:1;">a few reasons, out of many</div>
+  <h2>Why you</h2>
+  <div class="reasons-grid">
+    <div class="reason">
+      <div class="num">one</div>
+      <p>[Edit: something small she does that you love]</p>
+    </div>
+    <div class="reason">
+      <div class="num">two</div>
+      <p>[Edit: a moment you knew she was the one]</p>
+    </div>
+    <div class="reason">
+      <div class="num">three</div>
+      <p>[Edit: how she makes you a better person]</p>
+    </div>
+    <div class="reason">
+      <div class="num">four</div>
+      <p>[Edit: what you're most excited to build together]</p>
+    </div>
+  </div>
+</section>
+
+<section id="proposal" class="section">
+  <div class="proposal-content" id="proposalContent">
+    <div class="kicker">so, J —</div>
+    <h2>Will you marry me?</h2>
+    <div class="btn-row" id="btnRow">
+      <button class="yes-btn" id="yesBtn">Yes, forever</button>
+      <button class="no-btn" id="noBtn">Not yet</button>
+    </div>
+  </div>
+  <div class="celebration" id="celebration">
+    <h2>She said yes.</h2>
+    <p>[Edit: your closing line to her — the first thing you want to say once she says yes.]</p>
+  </div>
+</section>
+
+<footer>made with a very full heart, for J</footer>
+
+<script>
+  const noBtn = document.getElementById('noBtn');
+  const btnRow = document.getElementById('btnRow');
+  const yesBtn = document.getElementById('yesBtn');
+  const proposalContent = document.getElementById('proposalContent');
+  const celebration = document.getElementById('celebration');
+
+  function dodge(){
+    const maxX = Math.max(btnRow.clientWidth - 140, 40);
+    const maxY = Math.max(btnRow.clientHeight - 20, 10);
+    const x = (Math.random() - 0.5) * maxX;
+    const y = (Math.random() - 0.5) * maxY;
+    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+  }
+
+  noBtn.addEventListener('mouseenter', dodge);
+  noBtn.addEventListener('click', (e) => { e.preventDefault(); dodge(); });
+  noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); dodge(); }, { passive:false });
+
+  function spawnHearts(){
+    const symbols = ['♥','♡'];
+    for(let i=0;i<40;i++){
+      setTimeout(() => {
+        const h = document.createElement('div');
+        h.className = 'heart';
+        h.textContent = symbols[Math.floor(Math.random()*symbols.length)];
+        h.style.left = Math.random()*100 + 'vw';
+        h.style.fontSize = (14 + Math.random()*22) + 'px';
+        h.style.animationDuration = (2.8 + Math.random()*2.4) + 's';
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 5500);
+      }, i * 90);
+    }
+  }
+
+  yesBtn.addEventListener('click', () => {
+    proposalContent.style.opacity = '0';
+    setTimeout(() => {
+      proposalContent.style.display = 'none';
+      celebration.classList.add('show');
+      spawnHearts();
+      setInterval(spawnHearts, 3200);
+    }, 500);
+  });
+</script>
+
+</body>
+</html>
